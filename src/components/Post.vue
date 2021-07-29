@@ -2,13 +2,13 @@
   <div class="post">
       <div class="post-header">
           <!-- 프로필 사진 -->
-          <div class="profile">
+          <div class="profile" :style="{ backgroundImage : 'url('+this.post.userImage+')' }">
 
           </div>
           <span class="profile-name">{{post.name}}</span>
       </div>
         <!-- 포스팅 사진 -->
-      <div class="post-body" :style="{ backgroundImage : 'url(${post.postImage})' }">
+      <div class="post-body" :style="{ backgroundImage : 'url('+this.post.postImage+')' }">
           <!-- {{post.postImage}} -->
       </div>
 
@@ -37,7 +37,7 @@ export default {
     width: 100%;
 }
 .profile {
-    background-image: url('https://placeimg.com/100/100/arch');
+    /* background-image: url('https://placeimg.com/100/100/arch'); */
     width: 30px;
     height: 30px;
     background-size: 100%;
@@ -56,7 +56,7 @@ export default {
     padding: 10px;
 }
 .post-body{
-    background-image: url('https://placeimg.com/640/480/animals');
+    /* background-image: url('https://placeimg.com/640/480/animals'); */
     height: 450px;
     background-position: center;
     background-size: cover;

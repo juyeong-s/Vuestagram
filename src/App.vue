@@ -1,36 +1,92 @@
 <template>
   <div class="header">
     <ul class="header-button-left">
-      <li>Cancel</li>
+      <li @click="status--;">Cancel</li>
     </ul>
 
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="status != 2" @click="status++;">Next</li>
+      <li v-if="status == 2" @click="publish">Post</li>
     </ul>
 
-    <img src="./assets/logo.png" class="logo" alt="" />
+    <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :posts="postdata" />
+  <Container @posttext="content = $event" :posts="postdata" :status2="status" :file="fileList" :url="imgUrl"/>
+  <button @click="more">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" multiple type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
+
+  <!-- <div v-if="status === 0">내용0</div>
+  <div v-if="status === 1">내용1</div>
+  <div v-if="status === 2">내용2</div>
+  <button @click="status = 0">버튼0</button>
+  <button @click="status = 1">버튼1</button>
+  <button @click="status = 2">버튼2</button>
+  <div style="margin-top : 500px"></div> -->
+
 </template>
 
 <script>
 import Container from './components/Container.vue';
 import postdata from './assets/data';
+import axios from 'axios'
 
 export default {
   name: "App",
   data(){
     return{
       postdata : postdata,
+      count : 0,
+      status : 0,
+      fileList : [],
+      imgUrl : '',
+      content : '',
     }
+  },
+  methods :{
+    more(){  
+      console.log(this.count);
+      // axios.post('URL', {name : 'kim' }).then().catch((err)=>{
+      //   console.log(err);
+      // })
+      // 내가 원하는 데이터 전송가능
+      axios.get('https://codingapple1.github.io/vue/more'+this.count+'.json')
+      .then((result)=>{ // 해당 url로부터 얻어진 결과가 파라미터 result임
+        // 요청 성공 시 실행할 코드
+        // console.log(result.data);
+        this.postdata.push(result.data);  // postdata 배열에 result.data 결과 하나 더 추가해서
+                                          // 버튼 click 시마다, 하나의 게시물을 더 보여준다
+      })
+      this.count++;
+    },
+    upload(e){
+      this.fileList = e.target.files; // 업로드한 파일이 다 담김
+      // console.log(this.fileList[0]);
+      this.imgUrl = URL.createObjectURL(this.fileList[0]);
+      // console.log(url);
+      this.status++;
+    },
+    publish(){
+      // this.content = this.$emit('posttext', this.content);
+      let mypost = {
+        name : "Juyeong",
+        userImage : "https://placeimg.com/640/480/arch",
+        postImage : this.imgUrl,
+        likes : 50,
+        date: "Jun 30",
+        liked : false,
+        content : this.content,
+        filter : "1234"
+      };
+      this.postdata.unshift(mypost);  // 왼쪽의 array에 자료를 추가
+      this.status = 0;
+    },
   },
   components: {
     Container : Container,

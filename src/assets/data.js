@@ -21,7 +21,7 @@ export default [
     },
     {
         name : "Juyeong",
-        userImage : "https://placeimg.com/100/200/people",
+        userImage : "https://placeimg.com/640/480/arch",
         postImage : "https://placeimg.com/640/480/people",
         likes : 50,
         date: "Jun 30",
