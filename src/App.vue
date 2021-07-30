@@ -11,20 +11,21 @@
 
     <img src="./assets/logo.png" class="logo" />
   </div>
-  <h4>안녕 {{ $store.state.name }}</h4>
+  <!-- <h4>안녕 {{ $store.state.name }}</h4>
   <button @click="$store.commit('changeName')">버튼</button>
 
   <h4>내 나이 {{ $store.state.age }}</h4>
   <button @click="changeAge(10)">버튼</button>
   <p>{{ $store.state.more }}</p>
-  <button @click="$store.dispatch('getData')">더보기버튼</button>
+  <button @click="$store.dispatch('getData')">더보기버튼</button> -->
 
+  <div @click="status = 3" class="profile" style=" width: 50px; height: 50px; float: right; backgroundColor : skyblue; color: white;">프로필</div>
   <Container @posttext="content = $event" :posts="postdata" :status2="status" :file="fileList" :url="imgUrl"/>
-  <button @click="more">더보기</button>
+  <!-- <button @click="more">더보기</button> -->
 
   <!-- <p>{{now2}}  {{카운터}}</p>
   <button @click="카운터++">버튼</button> -->
-  <p>{{name}} {{age}}</p>
+  <!-- <p>{{name}} {{age}}</p> -->
 
   <div class="footer">
     <ul class="footer-button-plus">

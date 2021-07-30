@@ -5,7 +5,7 @@
       </div>
 
       <div v-if="status2 == 1">
-      <div :class="filter_name + ' upload-image'" :style="{ backgroundImage : 'url('+this.url+')' }"></div>
+      <div :class="filter_name + ' upload-image'" :style="{ backgroundImage : 'url('+url+')' }"></div>
       <div class="filters">
             <FilterBox :nowurl="url" :filter_item="filter" v-for="(filter,i) in filterList" :key="i">
                 <template v-slot:a>{{filter}}</template>
@@ -16,11 +16,16 @@
       </div>
 
       <div v-if="status2 == 2">
-        <div :class="filter_name + ' upload-image'" :style="{ backgroundImage : 'url('+this.url+')' }"></div>
+        <div :class="filter_name + ' upload-image'" :style="{ backgroundImage : 'url('+url+')' }"></div>
         <div class="write">
             <textarea @input="$emit('posttext',$event.target.value)" class="write-box">write!</textarea>
         </div>
       </div>
+
+      <div v-if="status2 == 3">
+          <MyPage :one="1"/>
+      </div>
+
   </div>
 </template>
 
@@ -28,6 +33,7 @@
 import Post from './Post.vue';
 import FilterBox from './FilterBox.vue';
 import filterlist from '../assets/filter';
+import MyPage from './MyPage.vue';
 
 export default {
     name : "Container",
@@ -39,7 +45,8 @@ export default {
     },
     components : {
         Post : Post,
-        FilterBox
+        FilterBox : FilterBox,
+        MyPage : MyPage,
     },
     props : {
         posts : Array,
