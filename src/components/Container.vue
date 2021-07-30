@@ -1,11 +1,11 @@
 <template>
   <div>
       <div v-if="status2 == 0">
-      <Post :post="posts[i]" v-for="(post,i) in posts" :key="i"/>
+      <Post :filter_name="filter_name" :i="i" :post="posts[i]" v-for="(post,i) in posts" :key="i"/>
       </div>
 
       <div v-if="status2 == 1">
-      <div class="upload-image" :style="{ backgroundImage : 'url('+this.url+')' }"></div>
+      <div :class="filter_name + ' upload-image'" :style="{ backgroundImage : 'url('+this.url+')' }"></div>
       <div class="filters">
             <FilterBox :nowurl="url" :filter_item="filter" v-for="(filter,i) in filterList" :key="i">
                 <template v-slot:a>{{filter}}</template>
@@ -16,7 +16,7 @@
       </div>
 
       <div v-if="status2 == 2">
-        <div class="upload-image" :style="{ backgroundImage : 'url('+this.url+')' }"></div>
+        <div :class="filter_name + ' upload-image'" :style="{ backgroundImage : 'url('+this.url+')' }"></div>
         <div class="write">
             <textarea @input="$emit('posttext',$event.target.value)" class="write-box">write!</textarea>
         </div>
@@ -34,6 +34,7 @@ export default {
     data(){
         return {
             filterList : filterlist,
+            filter_name : '',
         }
     },
     components : {
@@ -45,6 +46,12 @@ export default {
         status2 : Number,
         file : Array,
         url : String,
+    },
+    mounted(){
+        this.emitter.on('filter', (a)=>{           
+            this.filter_name = a;
+            // console.log(this.filter_name);
+        })
     },
 }
 </script>

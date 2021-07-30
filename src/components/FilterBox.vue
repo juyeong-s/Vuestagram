@@ -1,7 +1,7 @@
 <template>
-  <div :class="filter_item + ' filter-item'" :style="{backgroundImage : 'url('+nowurl+')'}">
-      <slot :msg="msg" name="a"></slot>
+  <div @click="fire" :class="filter_item + ' filter-item'" :style="{backgroundImage : 'url('+nowurl+')'}">    
        <!-- <slot name="b"></slot> -->
+      <slot :msg="msg" name="a"></slot>
     </div>
 </template>
 
@@ -16,7 +16,12 @@ export default {
         return{
             msg : 'hello'
         }
-    }
+    },
+    methods : {
+        fire(){
+            this.emitter.emit('filter',this.filter_item);
+        }
+    },
 }
 </script>
 

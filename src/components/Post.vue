@@ -2,18 +2,18 @@
   <div class="post">
       <div class="post-header">
           <!-- 프로필 사진 -->
-          <div class="profile" :style="{ backgroundImage : 'url('+this.post.userImage+')' }">
+          <div class="profile" :style="{ backgroundImage : 'url('+post.userImage+')' }">
 
           </div>
           <span class="profile-name">{{post.name}}</span>
       </div>
         <!-- 포스팅 사진 -->
-      <div class="post-body" :style="{ backgroundImage : 'url('+this.post.postImage+')' }">
+      <div @click="$store.commit('like',i)" :class="filter_name + ' post-body'" :style="{ backgroundImage : 'url('+post.postImage+')' }">
           <!-- {{post.postImage}} -->
       </div>
 
       <div class="post-content">
-          <p>좋아요 {{post.likes}}개</p>
+          <p>좋아요 {{ $store.state.likes[i] }}개</p>
           <p><strong>{{post.name}}</strong></p>
           <p>{{post.content}}</p>
           <p class="date">{{post.date}}</p>
@@ -25,9 +25,22 @@
 <script>
 export default {
     name : "Post",
+    // data(){
+    //     return {
+    //         filter_name : '',
+    //     }      
+    // },
     props :{
         post : Object,
-    }
+        filter_name : String,
+        i : Number,
+    },
+    // mounted(){
+    //     this.emitter.on('filter', (a)=>{           
+    //         this.filter_name = a;
+    //         console.log(this.filter_name);
+    //     })
+    // },
 
 }
 </script>

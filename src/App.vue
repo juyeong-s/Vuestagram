@@ -11,6 +11,13 @@
 
     <img src="./assets/logo.png" class="logo" />
   </div>
+  <!-- <h4>안녕 {{ $store.state.name }}</h4>
+  <button @click="$store.commit('changeName')">버튼</button>
+
+  <h4>내 나이 {{ $store.state.age }}</h4>
+  <button @click="$store.commit('changeAge',10)">버튼</button> -->
+  <p>{{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">더보기버튼</button>
 
   <Container @posttext="content = $event" :posts="postdata" :status2="status" :file="fileList" :url="imgUrl"/>
   <button @click="more">더보기</button>
@@ -47,6 +54,7 @@ export default {
       fileList : [],
       imgUrl : '',
       content : '',
+      filter_name : '',
     }
   },
   methods :{
@@ -82,11 +90,19 @@ export default {
         date: "Jun 30",
         liked : false,
         content : this.content,
-        filter : "1234"
+        filter : this.filter_name,
       };
       this.postdata.unshift(mypost);  // 왼쪽의 array에 자료를 추가
       this.status = 0;
+      this.$store.commit('newlike');
     },
+  },
+  mounted(){
+    this.emitter.on('filter', (a)=>{ // 누가 이런 작명이벤트를 발사하면
+      // 이 코드 실행해주세요
+      // a는 이벤트 안에 들어있던 데이터임
+      this.filter_name = a;
+    });
   },
   components: {
     Container : Container,
