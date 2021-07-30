@@ -32,13 +32,17 @@ const store = createStore({
             state.likes.unshift(0);
             console.log(state.likes);
             state.likestate.unshift(false);
-        },        
+        },
+        setMore(state,data){
+            state.more = data;
+        }     
     },
     actions : {
-        getData(){
+        getData(context){
             axios.get('http://codingapple1.github.io/vue/more0.json')
             .then((a)=>{
-                console.log(a.data);
+                // console.log(a.data);
+                context.commit('setMore',a.data);   // context는 state를 뜻함 관습적으로 context씀
             })
         },
     },

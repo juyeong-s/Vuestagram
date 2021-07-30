@@ -11,16 +11,20 @@
 
     <img src="./assets/logo.png" class="logo" />
   </div>
-  <!-- <h4>안녕 {{ $store.state.name }}</h4>
+  <h4>안녕 {{ $store.state.name }}</h4>
   <button @click="$store.commit('changeName')">버튼</button>
 
   <h4>내 나이 {{ $store.state.age }}</h4>
-  <button @click="$store.commit('changeAge',10)">버튼</button> -->
+  <button @click="changeAge(10)">버튼</button>
   <p>{{ $store.state.more }}</p>
   <button @click="$store.dispatch('getData')">더보기버튼</button>
 
   <Container @posttext="content = $event" :posts="postdata" :status2="status" :file="fileList" :url="imgUrl"/>
   <button @click="more">더보기</button>
+
+  <!-- <p>{{now2}}  {{카운터}}</p>
+  <button @click="카운터++">버튼</button> -->
+  <p>{{name}} {{age}}</p>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -43,11 +47,13 @@
 import Container from './components/Container.vue';
 import postdata from './assets/data';
 import axios from 'axios'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   name: "App",
   data(){
     return{
+      카운터 : 0,
       postdata : postdata,
       count : 0,
       status : 0,
@@ -57,7 +63,18 @@ export default {
       filter_name : '',
     }
   },
+  computed : {
+    name(){
+      return this.$store.state.name
+    },
+    ...mapState(['name','age','likes']), // 가져오고싶은 state 적기
+    ...mapState({작명:'name',})
+  },
   methods :{
+    ...mapMutations(['setMore','like','changeAge']),
+    now(){
+      return new Date();
+    },
     more(){  
       console.log(this.count);
       // axios.post('URL', {name : 'kim' }).then().catch((err)=>{
