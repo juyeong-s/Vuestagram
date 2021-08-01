@@ -77,7 +77,7 @@ export default {
       return new Date();
     },
     more(){  
-      console.log(this.count);
+      // console.log(this.count);
       // axios.post('URL', {name : 'kim' }).then().catch((err)=>{
       //   console.log(err);
       // })
